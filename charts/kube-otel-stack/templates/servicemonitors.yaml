@@ -1,0 +1,94 @@
+{{ $collectorList := (append (append .Values.collectors .Values.tracesCollector) .Values.metricsCollector) }}
+{{ range $_, $collector := $collectorList -}}
+{{ if $collector.enabled }}
+{{ $collectorName := (print $.Release.Name "-" $collector.name) }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ $collectorName }}-collector
+  labels:
+{{ include "kube-otel-stack.labels" $ | indent 4 }}
+spec:
+  endpoints:
+  - path: /metrics
+    port: monitoring
+  namespaceSelector:
+    matchNames:
+    - {{ $.Release.Namespace }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ $collectorName }}-collector-monitoring
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ $collectorName }}-targetallocator
+  labels:
+{{ include "kube-otel-stack.labels" $ | indent 4 }}
+spec:
+  endpoints:
+  - path: /metrics
+    port: targetallocation
+  namespaceSelector:
+    matchNames:
+    - {{ $.Release.Namespace }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ $collectorName }}-targetallocator
+{{ end }}
+{{ end }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Release.Name }}-operator
+  labels:
+{{ include "kube-otel-stack.labels" $ | indent 4 }}
+spec:
+  endpoints:
+  - path: /metrics
+    port: metrics
+  namespaceSelector:
+    matchNames:
+    - {{ .operatorNamespaceOverride | default .Release.Namespace }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: opentelemetry-operator
+{{- if .Values.kubeStateMetrics.serviceMonitor.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Release.Name }}-kube-state-metrics
+  labels:
+{{ include "kube-otel-stack.labels" $ | indent 4 }}
+spec:
+  endpoints:
+  - honorLabels: true
+    port: http
+  jobLabel: app.kubernetes.io/name
+  namespaceSelector:
+    any: true
+  selector:
+    matchLabels:
+      {{- toYaml .Values.kubeStateMetrics.serviceMonitor.matchLabels | nindent 6 }}
+{{- end }}
+{{- if .Values.nodeExporter.serviceMonitor.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Release.Name }}-node-exporter
+  labels:
+{{ include "kube-otel-stack.labels" $ | indent 4 }}
+spec:
+  endpoints:
+  - port: {{ .Values.nodeExporter.serviceMonitor.portName | default "http-metrics" }}
+    scheme: http
+  jobLabel: jobLabel
+  namespaceSelector:
+    any: true
+  selector:
+    matchLabels:
+      {{- toYaml .Values.nodeExporter.serviceMonitor.matchLabels | nindent 6 }}
+{{- end }}
