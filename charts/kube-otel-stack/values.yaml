@@ -1,0 +1,4 @@
+
+opentelemetry-operator:
+  admissionWebhooks:
+    failurePolicy: 'Ignore'

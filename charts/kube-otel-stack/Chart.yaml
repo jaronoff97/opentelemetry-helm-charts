@@ -1,0 +1,16 @@
+apiVersion: v2
+name: kube-otel-stack
+version: 0.42.0
+description: A one-stop-shop that allows you to deploy an operator and collector instance to begin observing Kubernetes.
+type: application
+home: https://opentelemetry.io/
+sources:
+  - https://github.com/open-telemetry/opentelemetry-operator
+maintainers:
+  - name: jaronoff97
+  - name: anammedina21
+icon: https://raw.githubusercontent.com/cncf/artwork/a718fa97fffec1b9fd14147682e9e3ac0c8817cb/projects/opentelemetry/icon/color/opentelemetry-icon-color.png
+appVersion: 0.88.0
+dependencies:
+- name: opentelemetry-operator
+  repository: "file://../dependency_chart/opentelemetry-operator"
