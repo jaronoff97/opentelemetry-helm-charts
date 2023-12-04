@@ -1,0 +1,120 @@
+
+collectors:
+- name: cluster-stats
+  labels:
+    opentelemetry.io/opamp-managed: "true"
+  clusterName: ""
+  image: otel/opentelemetry-collector-contrib:0.85.0
+  replicas: 1
+  mode: deployment
+  enabled: true
+  mountHostFS: false
+  resources:
+    limits:
+      cpu: 100m
+      memory: 500Mi
+    requests:
+      cpu: 100m
+      memory: 500Mi
+  env:
+    - name: LS_TOKEN
+      valueFrom:
+        secretKeyRef:
+          key: LS_TOKEN
+          name: otel-collector-secret
+  config:
+    receivers:
+      k8s_cluster:
+        auth_type: serviceAccount
+        collection_interval: 10s
+        node_conditions_to_report: [Ready, MemoryPressure, DiskPressure, NetworkUnavailable]
+        allocatable_types_to_report: [cpu, memory, storage]
+      k8s_events:
+        auth_type: serviceAccount
+
+    processors:
+      k8sattributes:
+        passthrough: false
+        pod_association:
+          - sources:
+              - from: resource_attribute
+                name: k8s.pod.uid
+          - sources:
+              - from: resource_attribute
+                name: k8s.pod.name
+              - from: resource_attribute
+                name: k8s.namespace.name
+              - from: resource_attribute
+                name: k8s.node.name
+          - sources:
+              - from: resource_attribute
+                name: k8s.pod.ip
+          - sources:
+              - from: resource_attribute
+                name: k8s.pod.name
+              - from: resource_attribute
+                name: k8s.namespace.name
+          - sources:
+              - from: connection
+        extract:
+          labels:
+            - tag_name: service.name
+              key: app.kubernetes.io/name
+              from: pod
+            - tag_name: service.name
+              key: k8s-app
+              from: pod
+            - tag_name: k8s.app.instance
+              key: app.kubernetes.io/instance
+              from: pod
+            - tag_name: service.version
+              key: app.kubernetes.io/version
+              from: pod
+            - tag_name: k8s.app.component
+              key: app.kubernetes.io/component
+              from: pod
+          metadata:
+            - k8s.namespace.name
+            - k8s.pod.name
+            - k8s.pod.uid
+            - k8s.node.name
+            - k8s.pod.start_time
+            - k8s.deployment.name
+            - k8s.replicaset.name
+            - k8s.replicaset.uid
+            - k8s.daemonset.name
+            - k8s.daemonset.uid
+            - k8s.job.name
+            - k8s.job.uid
+            - k8s.container.name
+            - k8s.cronjob.name
+            - k8s.statefulset.name
+            - k8s.statefulset.uid
+            - container.image.tag
+            - container.image.name
+            - k8s.cluster.uid
+      resourcedetection/env:
+        detectors: [env]
+        timeout: 2s
+        override: false
+      batch:
+        send_batch_size: 1000
+        timeout: 1s
+        send_batch_max_size: 1500
+
+    exporters:
+      logging:
+        verbosity: normal
+        sampling_initial: 5
+        sampling_thereafter: 200
+      otlp:
+        endpoint: ingest.lightstep.com:443
+        headers:
+          "lightstep-access-token": "${LS_TOKEN}"
+
+    service:
+      pipelines:
+        metrics/k8s_cluster:
+          receivers: [k8s_cluster]
+          processors: [resourcedetection/env, k8sattributes, batch]
+          exporters: [otlp, logging]

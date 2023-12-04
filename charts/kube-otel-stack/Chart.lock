@@ -1,0 +1,6 @@
+dependencies:
+- name: opentelemetry-operator
+  repository: file://../opentelemetry-operator
+  version: 0.42.0
+digest: sha256:bb729374326819fade9cfce223d0fb218d9d0ff1dd348b0820265c79e253fa78
+generated: "2023-11-03T12:37:47.333797-04:00"

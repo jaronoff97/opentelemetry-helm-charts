@@ -2,3 +2,8 @@
 opentelemetry-operator:
   admissionWebhooks:
     failurePolicy: 'Ignore'
+
+extraEnvs: []
+
+# A list of collectors
+collectors: []

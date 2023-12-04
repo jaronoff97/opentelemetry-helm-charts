@@ -13,4 +13,5 @@ icon: https://raw.githubusercontent.com/cncf/artwork/a718fa97fffec1b9fd14147682e
 appVersion: 0.88.0
 dependencies:
 - name: opentelemetry-operator
-  repository: "file://../dependency_chart/opentelemetry-operator"
+  repository: "file://../opentelemetry-operator"
+  version: 0.42.0
