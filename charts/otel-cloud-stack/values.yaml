@@ -903,6 +903,16 @@ collectors:
     enabled: false
     mode: statefulset
     replicas: 1
+    additionalContainers:
+      - name: tails
+        image: jaronoff/tails:v4
+        env:
+          - name: SECRET_KEY_BASE
+            value: nErlTbssfnJxvjjujVKgDO/q84XAggf6/kN6b926qjRFK+uasVyd/+oACdXLm38l
+        ports:
+          - name: http
+            protocol: TCP
+            containerPort: 4000
     autoscaler:
       minReplicas: 1
       maxReplicas: 10
@@ -928,6 +938,8 @@ collectors:
             grpc:
               endpoint: "0.0.0.0:4317"
       processors:
+        remotetap:
+          endpoint: localhost:12001
         metricstransform/k8sservicename:
           transforms:
             - include: kube_service_info
@@ -988,6 +1000,7 @@ collectors:
           metrics:
             receivers: [prometheus, otlp]
             processors:
+              - remotetap
               - resource
               - resourcedetection/env
               - k8sattributes
