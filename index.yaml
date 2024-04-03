@@ -1563,6 +1563,25 @@ entries:
     version: 0.1.0
   opentelemetry-kube-stack:
   - apiVersion: v2
+    appVersion: 0.96.0
+    created: "2024-04-03T21:23:42.694824696Z"
+    description: 'OpenTelemetry Quickstart chart for Kubernetes. Installs an operator
+      and collector for an easy way to get started with Kubernetes observability. '
+    digest: 6f6e930095be083b563eec22b876dd1a9e566d7d7c68c580b6828179ae923be9
+    home: https://opentelemetry.io/
+    icon: https://raw.githubusercontent.com/cncf/artwork/a718fa97fffec1b9fd14147682e9e3ac0c8817cb/projects/opentelemetry/icon/color/opentelemetry-icon-color.png
+    maintainers:
+    - name: Allex1
+    - name: dmitryax
+    - name: TylerHelmuth
+    name: opentelemetry-kube-stack
+    sources:
+    - https://github.com/open-telemetry/opentelemetry-operator
+    type: application
+    urls:
+    - https://github.com/jaronoff97/opentelemetry-helm-charts/releases/download/opentelemetry-kube-stack-0.0.2/opentelemetry-kube-stack-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.95.0
     created: "2024-03-27T19:49:32.079657981Z"
     description: 'OpenTelemetry Quickstart chart for Kubernetes. Installs an operator
@@ -1582,6 +1601,24 @@ entries:
     - https://github.com/jaronoff97/opentelemetry-helm-charts/releases/download/opentelemetry-kube-stack-0.0.1/opentelemetry-kube-stack-0.0.1.tgz
     version: 0.0.1
   opentelemetry-operator:
+  - apiVersion: v2
+    appVersion: 0.97.0
+    created: "2024-04-03T21:23:42.872607412Z"
+    description: OpenTelemetry Operator Helm chart for Kubernetes
+    digest: 3557af1af1fb0963638f2cea9c1883cc54df2f492eb3f858e04cfa8c8a1889b5
+    home: https://opentelemetry.io/
+    icon: https://raw.githubusercontent.com/cncf/artwork/a718fa97fffec1b9fd14147682e9e3ac0c8817cb/projects/opentelemetry/icon/color/opentelemetry-icon-color.png
+    maintainers:
+    - name: Allex1
+    - name: dmitryax
+    - name: TylerHelmuth
+    name: opentelemetry-operator
+    sources:
+    - https://github.com/open-telemetry/opentelemetry-operator
+    type: application
+    urls:
+    - https://github.com/jaronoff97/opentelemetry-helm-charts/releases/download/opentelemetry-operator-0.53.0/opentelemetry-operator-0.53.0.tgz
+    version: 0.53.0
   - apiVersion: v2
     appVersion: 0.96.0
     created: "2024-04-03T19:29:08.39584694Z"
@@ -2224,4 +2261,4 @@ entries:
     urls:
     - https://github.com/open-telemetry/opentelemetry-helm-charts/releases/download/opentelemetry-operator-0.1.0/opentelemetry-operator-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-03T19:29:08.396213205Z"
+generated: "2024-04-03T21:23:42.873137652Z"
