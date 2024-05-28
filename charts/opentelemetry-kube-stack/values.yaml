@@ -8,7 +8,10 @@ clusterName: ""
 
 # Extra environment variables to add to each collector, bridge and instrumentation
 extraEnvs: []
-
+# Should the CRDs be installed as part of the helm installation
+# This does not upgrade or uninstall the CRDs, only installation will be done.
+opentelemetry-operator-crds:
+  enabled: true
 # Top level field related to the OpenTelemetry Operator
 opentelemetry-operator:
   # Field indicating whether the operator is enabled or not

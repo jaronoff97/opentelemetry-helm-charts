@@ -15,6 +15,10 @@ maintainers:
 icon: https://raw.githubusercontent.com/cncf/artwork/a718fa97fffec1b9fd14147682e9e3ac0c8817cb/projects/opentelemetry/icon/color/opentelemetry-icon-color.png
 appVersion: 0.99.0
 dependencies:
+  - name: opentelemetry-operator-crds
+    repository: "file://../opentelemetry-operator-crds"
+    version: 0.0.1
+    condition: opentelemetry-operator-crds.enabled
   - name: opentelemetry-operator
     repository: https://open-telemetry.github.io/opentelemetry-helm-charts
     version: 0.58.2
