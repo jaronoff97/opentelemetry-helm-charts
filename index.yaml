@@ -2,6 +2,24 @@ apiVersion: v1
 entries:
   opentelemetry-collector:
   - apiVersion: v2
+    appVersion: 0.102.1
+    created: "2024-06-05T19:00:59.325196619Z"
+    description: OpenTelemetry Collector Helm chart for Kubernetes
+    digest: af82c424872be5941ea65733b2a6c3000b6804395df0b98225de26d50cfcf965
+    home: https://opentelemetry.io/
+    icon: https://opentelemetry.io/img/logos/opentelemetry-logo-nav.png
+    maintainers:
+    - name: dmitryax
+    - name: TylerHelmuth
+    name: opentelemetry-collector
+    sources:
+    - https://github.com/open-telemetry/opentelemetry-collector
+    - https://github.com/open-telemetry/opentelemetry-collector-contrib
+    type: application
+    urls:
+    - https://github.com/jaronoff97/opentelemetry-helm-charts/releases/download/opentelemetry-collector-0.93.1/opentelemetry-collector-0.93.1.tgz
+    version: 0.93.1
+  - apiVersion: v2
     appVersion: 0.99.0
     created: "2024-04-30T18:22:11.138208925Z"
     description: OpenTelemetry Collector Helm chart for Kubernetes
@@ -1340,6 +1358,45 @@ entries:
   opentelemetry-demo:
   - apiVersion: v2
     appVersion: 1.9.0
+    created: "2024-06-05T19:00:59.580163073Z"
+    dependencies:
+    - condition: opentelemetry-collector.enabled
+      name: opentelemetry-collector
+      repository: https://open-telemetry.github.io/opentelemetry-helm-charts
+      version: 0.90.1
+    - condition: jaeger.enabled
+      name: jaeger
+      repository: https://jaegertracing.github.io/helm-charts
+      version: 3.0.7
+    - condition: prometheus.enabled
+      name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 25.20.1
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 7.3.9
+    - condition: opensearch.enabled
+      name: opensearch
+      repository: https://opensearch-project.github.io/helm-charts
+      version: 2.19.0
+    description: opentelemetry demo helm chart
+    digest: 5a2ce801b759245deac6fd41345a658dfd0326ae3687b30c0a7ab972c82fbcf8
+    home: https://opentelemetry.io/
+    icon: https://opentelemetry.io/img/logos/opentelemetry-logo-nav.png
+    maintainers:
+    - name: dmitryax
+    - name: puckpuck
+    - name: tylerhelmuth
+    name: opentelemetry-demo
+    sources:
+    - https://github.com/open-telemetry/opentelemetry-demo
+    type: application
+    urls:
+    - https://github.com/jaronoff97/opentelemetry-helm-charts/releases/download/opentelemetry-demo-0.30.6/opentelemetry-demo-0.30.6.tgz
+    version: 0.30.6
+  - apiVersion: v2
+    appVersion: 1.9.0
     created: "2024-05-01T18:17:10.965130746Z"
     dependencies:
     - condition: opentelemetry-collector.enabled
@@ -1854,6 +1911,24 @@ entries:
     - https://github.com/jaronoff97/opentelemetry-helm-charts/releases/download/opentelemetry-kube-stack-0.0.1/opentelemetry-kube-stack-0.0.1.tgz
     version: 0.0.1
   opentelemetry-operator:
+  - apiVersion: v2
+    appVersion: 0.101.0
+    created: "2024-06-05T19:00:59.802699276Z"
+    description: OpenTelemetry Operator Helm chart for Kubernetes
+    digest: f0b8fae443dd7ec40842db997f326dcabf4dfcaaf7d6b97a1e0404bfb701e2d2
+    home: https://opentelemetry.io/
+    icon: https://raw.githubusercontent.com/cncf/artwork/a718fa97fffec1b9fd14147682e9e3ac0c8817cb/projects/opentelemetry/icon/color/opentelemetry-icon-color.png
+    maintainers:
+    - name: Allex1
+    - name: dmitryax
+    - name: TylerHelmuth
+    name: opentelemetry-operator
+    sources:
+    - https://github.com/open-telemetry/opentelemetry-operator
+    type: application
+    urls:
+    - https://github.com/jaronoff97/opentelemetry-helm-charts/releases/download/opentelemetry-operator-0.61.0/opentelemetry-operator-0.61.0.tgz
+    version: 0.61.0
   - apiVersion: v2
     appVersion: 0.98.0
     created: "2024-04-30T18:22:11.766828822Z"
@@ -2568,4 +2643,4 @@ entries:
     urls:
     - https://github.com/open-telemetry/opentelemetry-helm-charts/releases/download/opentelemetry-operator-0.1.0/opentelemetry-operator-0.1.0.tgz
     version: 0.1.0
-generated: "2024-05-01T18:17:10.965372516Z"
+generated: "2024-06-05T19:00:59.803160396Z"
