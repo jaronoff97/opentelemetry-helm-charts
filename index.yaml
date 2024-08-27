@@ -2232,6 +2232,25 @@ entries:
   opentelemetry-ebpf:
   - apiVersion: v2
     appVersion: v0.10.2
+    created: "2024-08-27T17:29:08.092194851Z"
+    description: OpenTelemetry eBPF Helm chart for Kubernetes
+    digest: 8e173bef3909e706c33168e4ce822b6c44d9681feff3cdf88642b78ea065126d
+    home: https://opentelemetry.io/
+    icon: https://opentelemetry.io/img/logos/opentelemetry-logo-nav.png
+    maintainers:
+    - name: dmitryax
+    - name: jaronoff97
+    - name: TylerHelmuth
+    - name: nicolastakashi
+    name: opentelemetry-ebpf
+    sources:
+    - https://github.com/open-telemetry/opentelemetry-ebpf
+    type: application
+    urls:
+    - https://github.com/jaronoff97/opentelemetry-helm-charts/releases/download/opentelemetry-ebpf-0.1.2/opentelemetry-ebpf-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: v0.10.2
     created: "2024-08-13T19:33:10.281910482Z"
     description: OpenTelemetry eBPF Helm chart for Kubernetes
     digest: 0f15b48656e5c977fadc55d80023c0d37c6c0e9f9d4c1a8e741dea860f315828
@@ -3632,4 +3651,4 @@ entries:
     urls:
     - https://github.com/open-telemetry/opentelemetry-helm-charts/releases/download/opentelemetry-operator-0.1.0/opentelemetry-operator-0.1.0.tgz
     version: 0.1.0
-generated: "2024-08-27T17:29:01.345147222Z"
+generated: "2024-08-27T17:29:08.092455128Z"
